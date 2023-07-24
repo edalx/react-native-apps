@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
     resultado: {
         color: 'white',
         fontSize: 60,
-        textAlign: 'right'
+        textAlign: 'right',
+        marginBottom: 10
     },
     resultadoPequeño: {
         color: 'rgba(255,255,255,05)',
@@ -24,9 +25,9 @@ export const styles = StyleSheet.create({
     boton: {
         height: 80,
         width: 80,
-        backgroundColor: '#9B9B9B',
         borderRadius: 100,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginHorizontal: 10
     },
     botonTexto: {
         textAlign: 'center',
@@ -35,5 +36,11 @@ export const styles = StyleSheet.create({
         color: 'black',
         fontWeight: '300'
 
+    },
+    fila:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 18,
+        paddingHorizontal: 10
     }
 });
