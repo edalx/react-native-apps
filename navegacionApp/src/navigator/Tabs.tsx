@@ -7,6 +7,7 @@ import { StackNavigator } from './StackNavigator';
 import { colores } from '../theme/appTheme';
 import { Platform, Text } from 'react-native';
 import { TopTabNavigator } from './TopTabNavigator';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 export const Tabs = () => {
@@ -25,22 +26,25 @@ export const TabsAndroid = () => {
             // }}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ color, focused }) => {
-                    let iconName: String = '';
+                    let iconName: string = "";
                     switch (route.name) {
                         case 'Tab1Scren':
-                            iconName = 'T1';
+                            iconName = 'boat';
                             break;
                         case 'Tab2Scren':
-                            iconName = 'T2';
+                            iconName = 'code-slash';
                             break;
                         case 'StackNavigator':
-                            iconName = 'St';
+                            iconName = 'fitness';
                             break;
                     }
-                    return <Text style={{ color }}>{iconName}</Text>
+                    return <Text style={{ color }}><Icon  name={iconName} size={25} /></Text>
                 }
             })}
-            barStyle={{ backgroundColor: '#694fad'}}
+            
+            // activeColor="#f0edf6"
+            // inactiveColor="white"
+            barStyle={{ backgroundColor: '#694fad', borderRadius:0}}
         >
             <BottomTabAndroid.Screen name="Tab1Scren" component={Tab1Scren} options={{ title: 'Tab1' }} />
             <BottomTabAndroid.Screen name="Tab2Scren" component={TopTabNavigator} options={{ title: 'Tab2' }} />

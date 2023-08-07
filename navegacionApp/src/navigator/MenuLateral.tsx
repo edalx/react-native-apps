@@ -7,6 +7,7 @@ import { styles } from '../theme/appTheme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Tabs } from './Tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Drawer = createDrawerNavigator();
 // const Stack = createStackNavigator();
@@ -24,8 +25,7 @@ const Drawer = createDrawerNavigator();
 export const MenuLateral = () => {
     return (
         <Drawer.Navigator
-            drawerContent={props => <MenuInterno {...props} />}
-        >
+            drawerContent={props => <MenuInterno {...props} />}>
             <Drawer.Screen name="Tabs" component={Tabs} />
             <Drawer.Screen name="SettingsScreen" component={SettingsScren} />
         </Drawer.Navigator>
@@ -49,15 +49,19 @@ const MenuInterno = ({ navigation }: DrawerContentComponentProps) => {
             {/* Opciones del menu */}
             <View style={styles.menuContainer}>
                 <TouchableOpacity
-                    style={styles.menuBoton}
+                    style={{...styles.menuBoton, 
+                        flexDirection:'row'
+                    }}
                     onPress={() => navigation.navigate('Tabs')}
                 >
+                    <Icon  name="git-branch" size={23} color='black'/>
                     <Text style={styles.menuTexto}>Navegacion</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.menuBoton}
+                    style={{...styles.menuBoton, flexDirection:'row'}}
                     onPress={() => navigation.navigate('SettingsScreen')}
                 >
+                    <Icon  name="hammer" size={23} color='black' />
                     <Text style={styles.menuTexto}>Ajustes</Text>
                 </TouchableOpacity>
             </View>
