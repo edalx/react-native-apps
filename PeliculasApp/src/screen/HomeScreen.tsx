@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react'
-import { Button, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import moviewDB from '../api/movieDB';
-import { MovieDBNowPlaying } from '../interfaces/movieInterface';
+import React from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
+import { useMovies } from '../hooks/UseMovies';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MoviePoster } from '../components/MoviePoster';
 
 export const HomeScreen = () => {
-    const navigation = useNavigation<any>();
-    useEffect(() => {
-        moviewDB.get<MovieDBNowPlaying>('/now_playing').then(resp => {
-            console.log(resp.data.results[0].title);
-        });
-    }, []);
+    const { peliculasEnCine, isLoading } = useMovies();
+    const { top } = useSafeAreaInsets();
+
+    if (isLoading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                <ActivityIndicator color="red" size={100} />
+            </View>
+        )
+    }
 
 
     return (
-        <View>
-            <Text>HomeScreen</Text>
-            <Button
-                title='Ir Detalle'
-                onPress={() => navigation.navigate('DetailScreen')}
-            />
+        <View style={{ marginTop: top + 20 }}>
+            <MoviePoster movie={peliculasEnCine[1]} />
         </View>
     )
 }
