@@ -14,7 +14,6 @@ export const MoviePoster = ({ movie, height = 420, width = 300, marginHorizontal
     //https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg
     const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     const navigation = useNavigation();
-    console.log(movie)
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate('DetailScreen', movie)}
