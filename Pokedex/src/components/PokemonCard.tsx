@@ -1,22 +1,50 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SimplePokemon } from '../interfaces/pokemonInterfaces'
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { FadeInImage } from './FadeInImage'
+import ImageColors from 'react-native-image-colors'
+import { useNavigation } from '@react-navigation/native'
 
 const windowWidth = Dimensions.get('window').width
 interface Props {
     pokemon: SimplePokemon
 }
 export const PokemonCard = ({ pokemon }: Props) => {
+    const [bgColor, setBgColor] = useState('grey');
+    const isMounted = useRef(true);
+    const navigation = useNavigation();
+    useEffect(() => {
+        ImageColors.getColors(pokemon.picture, { fallback: 'grey' })
+            .then(colors => {
+                if (!isMounted.current) return;
+                if (colors.platform === 'android') {
+                    setBgColor(colors.dominant || 'grey')
+                } else if (colors.platform === 'ios') {
+                    setBgColor(colors.background || 'grey')
+                }
+            });
+        return () => {
+            isMounted.current = false;
+        }
+    }, []);
+
     return (
         <View>
             <TouchableOpacity
                 activeOpacity={0.9}
+                onPress={
+                    () => navigation.navigate('PokemonScreen', 
+                    { 
+                        simplePokemon: pokemon,
+                        color: bgColor
+                    })
+                }
             >
                 <View style={{
                     ...styles.cardContainer,
-                    width: windowWidth * 0.4
+                    width: windowWidth * 0.4,
+                    backgroundColor: bgColor
                 }}>
                     <View>
                         <Text style={styles.name}>
@@ -44,7 +72,6 @@ export const PokemonCard = ({ pokemon }: Props) => {
 const styles = StyleSheet.create({
     cardContainer: {
         marginHorizontal: 10,
-        backgroundColor: 'red',
         height: 120,
         width: 160,
         marginBottom: 25,
